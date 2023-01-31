@@ -1,0 +1,58 @@
+<div class="container pt-4">
+  <div class="header">
+    <a [routerLink]="['/principal']" class="text-muted"><i class="fa fa-angle-left fs-2" aria-hidden="true"></i></a>
+    <h2 class="text-center">History</h2>
+  </div>
+  <div class="principal" *ngIf="userHistory.length==0">
+    <div class="content">
+      <div class="vacio">
+        <div class="icono">
+          <i class="fa fa-calendar-minus text-muted" aria-hidden="true"></i>
+        </div>
+        <div class="texto mt-5">
+          <span class="text-muted">No history yet</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion principal mt-4" *ngIf="userHistory.length!==0">
+    <div class="accordion-item my-3" *ngFor="let item of userHistory">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+          aria-expanded="true">
+          <div class="date">
+            <div class="fecha">
+              {{item.data | date:'EEE, MMM d, y'}}
+            </div>
+            <div class="cantidad">
+              {{item.items.length}} items
+            </div>
+          </div>
+          <div class="total">
+            {{item.total | currency}}
+          </div>
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+        data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="orden">
+            <h2>Order</h2>
+            <ul>
+              <li *ngFor="let product of item.items">{{product.quantity}} - {{product.name}} <span>{{product.price |
+                  currency}}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="delivery">
+            <h2>Delivery</h2>
+            {{item.delivery_address}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
